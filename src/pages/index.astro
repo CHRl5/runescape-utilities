@@ -2,6 +2,7 @@
 import miningData from "../../data/rs3-mining-data.json";
 
 const defaultLevel = 90;
+const defaultStrengthLevel = 99;
 const defaultPick = "Elder rune+5";
 const sortedPicks = [...miningData.picks].sort((a, b) => (a.level === b.level ? a.max - b.max : a.level - b.level));
 ---
@@ -72,6 +73,7 @@ const sortedPicks = [...miningData.picks].sort((a, b) => (a.level === b.level ? 
       .effective h2 { margin: 0 0 0.5rem; font-size: 1.05rem; }
       .effective p { margin: 0.25rem 0; color: var(--muted); }
       .warning { color: var(--accent-warm) !important; }
+      .summary { margin-top: 0.8rem !important; color: var(--ink) !important; }
 
       .results-grid { margin-top: 1rem; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
       .result h3 { margin: 0; font-size: 1.2rem; }
@@ -108,6 +110,11 @@ const sortedPicks = [...miningData.picks].sort((a, b) => (a.level === b.level ? 
         </label>
 
         <label>
+          Strength Level
+          <input id="strength-level" type="number" min="1" max="120" value={defaultStrengthLevel} />
+        </label>
+
+        <label>
           Pickaxe
           <select id="pickaxe">
             {sortedPicks.map((pick) => (
@@ -124,9 +131,11 @@ const sortedPicks = [...miningData.picks].sort((a, b) => (a.level === b.level ? 
 
       <section class="panel effective">
         <h2>Effective setup</h2>
+        <p id="effective-strength"></p>
         <p id="selected-pick"></p>
         <p id="effective-pick"></p>
         <p id="effective-warning" class="warning"></p>
+        <p id="effective-summary" class="summary"></p>
       </section>
 
       <section class="results-grid">
@@ -153,7 +162,7 @@ const sortedPicks = [...miningData.picks].sort((a, b) => (a.level === b.level ? 
       </section>
 
       <footer class="footnote">
-        <p>Notes: strength boosts, familiars, perks, and buffs are not included yet. This first version uses mining level + pickaxe only.</p>
+        <p>Notes: this version includes mining level, strength level, and pickaxe. External buffs (auras, perks, familiars, potions, etc.) are still excluded.</p>
       </footer>
     </main>
 
@@ -166,12 +175,15 @@ const sortedPicks = [...miningData.picks].sort((a, b) => (a.level === b.level ? 
 
       const data = JSON.parse(document.getElementById("mining-data").textContent || "{}");
       const levelInput = document.getElementById("mining-level");
+      const strengthLevelInput = document.getElementById("strength-level");
       const pickSelect = document.getElementById("pickaxe");
       const coreOnlyInput = document.getElementById("core-only");
 
+      const effectiveStrengthEl = document.getElementById("effective-strength");
       const selectedPickEl = document.getElementById("selected-pick");
       const effectivePickEl = document.getElementById("effective-pick");
       const warningEl = document.getElementById("effective-warning");
+      const effectiveSummaryEl = document.getElementById("effective-summary");
 
       const countGuaranteedEl = document.getElementById("count-guaranteed");
       const countPossibleEl = document.getElementById("count-possible");
@@ -207,11 +219,11 @@ const sortedPicks = [...miningData.picks].sort((a, b) => (a.level === b.level ? 
         return 0.1;
       }
 
-      function damage(miningLevel, pickaxe, rock) {
+      function damage(miningLevel, strengthLevel, pickaxe, rock) {
         const netHardness = Math.min(0, pickaxe.pen - rock.hardness);
         const netCritBonus = Math.max(1, critBonus(miningLevel) + netHardness);
         const netCrit = netCritBonus * critChance(miningLevel, rock);
-        const base = miningLevel + netHardness + netCrit;
+        const base = miningLevel + Math.floor(strengthLevel / 10) + netHardness + netCrit;
         return { min: Math.max(1, base + pickaxe.min), max: Math.max(1, base + pickaxe.max) };
       }
 
@@ -225,19 +237,22 @@ const sortedPicks = [...miningData.picks].sort((a, b) => (a.level === b.level ? 
 
       function recalc() {
         const miningLevel = clamp(Number(levelInput.value) || 1, 1, 120);
+        const strengthLevel = clamp(Number(strengthLevelInput.value) || 1, 1, 120);
         levelInput.value = String(miningLevel);
+        strengthLevelInput.value = String(strengthLevel);
 
         const selectedPick = pickMap.get(pickSelect.value) || picks[0];
         const bestAllowed = picks.filter((pick) => pick.level <= miningLevel);
         const effectivePick = selectedPick.level <= miningLevel ? selectedPick : (bestAllowed[bestAllowed.length - 1] || picks[0]);
 
+        effectiveStrengthEl.textContent = `Strength in calc: ${strengthLevel}`;
         selectedPickEl.textContent = `Selected: ${selectedPick.name} (req ${selectedPick.level})`;
         effectivePickEl.textContent = `Used in calc: ${effectivePick.name} (req ${effectivePick.level})`;
         warningEl.textContent = selectedPick.name === effectivePick.name ? "" : "Your selected pickaxe is above your mining level, so the calculator falls back to the best usable pickaxe.";
 
         const coreOnly = coreOnlyInput.checked;
         const eligible = data.rocks.filter((rock) => rock.level <= miningLevel).filter((rock) => (coreOnly ? rock.core === 1 : true));
-        const enriched = eligible.map((rock) => ({ rock, hit: damage(miningLevel, effectivePick, rock) })).sort((a, b) => a.rock.level - b.rock.level || a.rock.diff - b.rock.diff);
+        const enriched = eligible.map((rock) => ({ rock, hit: damage(miningLevel, strengthLevel, effectivePick, rock) })).sort((a, b) => a.rock.level - b.rock.level || a.rock.diff - b.rock.diff);
 
         const guaranteed = enriched.filter((entry) => entry.hit.min >= entry.rock.diff);
         const possible = enriched.filter((entry) => entry.hit.min < entry.rock.diff && entry.hit.max >= entry.rock.diff);
@@ -247,12 +262,18 @@ const sortedPicks = [...miningData.picks].sort((a, b) => (a.level === b.level ? 
         countPossibleEl.textContent = `${possible.length} rocks`;
         countNotEl.textContent = `${notPossible.length} rocks`;
 
+        const bestGuaranteed = guaranteed[guaranteed.length - 1];
+        effectiveSummaryEl.textContent = bestGuaranteed
+          ? `Best guaranteed rock: ${bestGuaranteed.rock.name} (level ${bestGuaranteed.rock.level}, HP ${Math.round(bestGuaranteed.rock.diff)})`
+          : "No currently mineable rocks are guaranteed one-hit with this setup.";
+
         renderRows(rowsGuaranteedEl, guaranteed);
         renderRows(rowsPossibleEl, possible);
         renderRows(rowsNotEl, notPossible);
       }
 
       levelInput.addEventListener("input", recalc);
+      strengthLevelInput.addEventListener("input", recalc);
       pickSelect.addEventListener("change", recalc);
       coreOnlyInput.addEventListener("change", recalc);
       recalc();
