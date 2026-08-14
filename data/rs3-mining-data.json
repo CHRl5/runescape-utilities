@@ -1,0 +1,1028 @@
+{
+  "picks": [
+    {
+      "name": "Bronze",
+      "level": 1.0,
+      "min": 3.0,
+      "max": 7.0,
+      "avg": 5.0,
+      "pen": 0.0
+    },
+    {
+      "name": "Iron",
+      "level": 10.0,
+      "min": 5.0,
+      "max": 15.0,
+      "avg": 10.0,
+      "pen": 5.0
+    },
+    {
+      "name": "Iron+1",
+      "level": 10.0,
+      "min": 6.0,
+      "max": 16.0,
+      "avg": 11.0,
+      "pen": 5.0
+    },
+    {
+      "name": "Steel",
+      "level": 20.0,
+      "min": 10.0,
+      "max": 30.0,
+      "avg": 20.0,
+      "pen": 15.0
+    },
+    {
+      "name": "Steel+1",
+      "level": 20.0,
+      "min": 11.0,
+      "max": 31.0,
+      "avg": 21.0,
+      "pen": 15.0
+    },
+    {
+      "name": "Mithril",
+      "level": 30.0,
+      "min": 15.0,
+      "max": 45.0,
+      "avg": 30.0,
+      "pen": 30.0
+    },
+    {
+      "name": "Mithril+1",
+      "level": 30.0,
+      "min": 16.0,
+      "max": 46.0,
+      "avg": 31.0,
+      "pen": 30.0
+    },
+    {
+      "name": "Mithril+2",
+      "level": 30.0,
+      "min": 17.0,
+      "max": 47.0,
+      "avg": 32.0,
+      "pen": 30.0
+    },
+    {
+      "name": "Adamant",
+      "level": 40.0,
+      "min": 20.0,
+      "max": 60.0,
+      "avg": 40.0,
+      "pen": 50.0
+    },
+    {
+      "name": "Adamant+1",
+      "level": 40.0,
+      "min": 21.0,
+      "max": 61.0,
+      "avg": 41.0,
+      "pen": 50.0
+    },
+    {
+      "name": "Adamant+2",
+      "level": 40.0,
+      "min": 22.0,
+      "max": 62.0,
+      "avg": 42.0,
+      "pen": 50.0
+    },
+    {
+      "name": "Rune",
+      "level": 50.0,
+      "min": 25.0,
+      "max": 75.0,
+      "avg": 50.0,
+      "pen": 75.0
+    },
+    {
+      "name": "Rune+1",
+      "level": 50.0,
+      "min": 26.0,
+      "max": 76.0,
+      "avg": 51.0,
+      "pen": 75.0
+    },
+    {
+      "name": "Rune+2",
+      "level": 50.0,
+      "min": 27.0,
+      "max": 77.0,
+      "avg": 52.0,
+      "pen": 75.0
+    },
+    {
+      "name": "Rune+3",
+      "level": 50.0,
+      "min": 28.0,
+      "max": 78.0,
+      "avg": 53.0,
+      "pen": 75.0
+    },
+    {
+      "name": "Inferno adze",
+      "level": 50.0,
+      "min": 28.0,
+      "max": 78.0,
+      "avg": 53.0,
+      "pen": 75.0
+    },
+    {
+      "name": "Orikalkum",
+      "level": 60.0,
+      "min": 30.0,
+      "max": 90.0,
+      "avg": 60.0,
+      "pen": 105.0
+    },
+    {
+      "name": "Orikalkum+1",
+      "level": 60.0,
+      "min": 31.0,
+      "max": 91.0,
+      "avg": 61.0,
+      "pen": 105.0
+    },
+    {
+      "name": "Orikalkum+2",
+      "level": 60.0,
+      "min": 32.0,
+      "max": 92.0,
+      "avg": 62.0,
+      "pen": 105.0
+    },
+    {
+      "name": "Orikalkum+3",
+      "level": 60.0,
+      "min": 33.0,
+      "max": 93.0,
+      "avg": 63.0,
+      "pen": 105.0
+    },
+    {
+      "name": "Dragon",
+      "level": 60.0,
+      "min": 33.0,
+      "max": 93.0,
+      "avg": 63.0,
+      "pen": 105.0
+    },
+    {
+      "name": "Necronium",
+      "level": 70.0,
+      "min": 35.0,
+      "max": 105.0,
+      "avg": 70.0,
+      "pen": 140.0
+    },
+    {
+      "name": "Necronium+1",
+      "level": 70.0,
+      "min": 36.0,
+      "max": 106.0,
+      "avg": 71.0,
+      "pen": 140.0
+    },
+    {
+      "name": "Necronium+2",
+      "level": 70.0,
+      "min": 37.0,
+      "max": 107.0,
+      "avg": 72.0,
+      "pen": 140.0
+    },
+    {
+      "name": "Necronium+3",
+      "level": 70.0,
+      "min": 38.0,
+      "max": 108.0,
+      "avg": 73.0,
+      "pen": 140.0
+    },
+    {
+      "name": "Necronium+4",
+      "level": 70.0,
+      "min": 39.0,
+      "max": 109.0,
+      "avg": 74.0,
+      "pen": 140.0
+    },
+    {
+      "name": "Crystal",
+      "level": 70.0,
+      "min": 39.0,
+      "max": 109.0,
+      "avg": 74.0,
+      "pen": 140.0
+    },
+    {
+      "name": "Bane",
+      "level": 80.0,
+      "min": 40.0,
+      "max": 120.0,
+      "avg": 80.0,
+      "pen": 180.0
+    },
+    {
+      "name": "Bane+1",
+      "level": 80.0,
+      "min": 41.0,
+      "max": 121.0,
+      "avg": 81.0,
+      "pen": 180.0
+    },
+    {
+      "name": "Bane+2",
+      "level": 80.0,
+      "min": 42.0,
+      "max": 122.0,
+      "avg": 82.0,
+      "pen": 180.0
+    },
+    {
+      "name": "Bane+3",
+      "level": 80.0,
+      "min": 43.0,
+      "max": 123.0,
+      "avg": 83.0,
+      "pen": 180.0
+    },
+    {
+      "name": "Bane+4",
+      "level": 80.0,
+      "min": 44.0,
+      "max": 124.0,
+      "avg": 84.0,
+      "pen": 180.0
+    },
+    {
+      "name": "Imcando",
+      "level": 80.0,
+      "min": 44.0,
+      "max": 124.0,
+      "avg": 84.0,
+      "pen": 180.0
+    },
+    {
+      "name": "Elder rune",
+      "level": 90.0,
+      "min": 45.0,
+      "max": 135.0,
+      "avg": 90.0,
+      "pen": 225.0
+    },
+    {
+      "name": "Elder rune+1",
+      "level": 90.0,
+      "min": 46.0,
+      "max": 136.0,
+      "avg": 91.0,
+      "pen": 225.0
+    },
+    {
+      "name": "Elder rune+2",
+      "level": 90.0,
+      "min": 47.0,
+      "max": 137.0,
+      "avg": 92.0,
+      "pen": 225.0
+    },
+    {
+      "name": "Elder rune+3",
+      "level": 90.0,
+      "min": 48.0,
+      "max": 138.0,
+      "avg": 93.0,
+      "pen": 225.0
+    },
+    {
+      "name": "Elder rune+4",
+      "level": 90.0,
+      "min": 49.0,
+      "max": 139.0,
+      "avg": 94.0,
+      "pen": 225.0
+    },
+    {
+      "name": "Elder rune+5",
+      "level": 90.0,
+      "min": 50.0,
+      "max": 140.0,
+      "avg": 95.0,
+      "pen": 225.0
+    },
+    {
+      "name": "Earth and Song",
+      "level": 90.0,
+      "min": 50.0,
+      "max": 140.0,
+      "avg": 95.0,
+      "pen": 225.0
+    },
+    {
+      "name": "Primal",
+      "level": 100.0,
+      "min": 50.0,
+      "max": 150.0,
+      "avg": 100.0,
+      "pen": 275.0
+    },
+    {
+      "name": "Primal+1",
+      "level": 100.0,
+      "min": 51.0,
+      "max": 151.0,
+      "avg": 101.0,
+      "pen": 275.0
+    },
+    {
+      "name": "Primal+2",
+      "level": 100.0,
+      "min": 52.0,
+      "max": 152.0,
+      "avg": 102.0,
+      "pen": 275.0
+    },
+    {
+      "name": "Primal+3",
+      "level": 100.0,
+      "min": 53.0,
+      "max": 153.0,
+      "avg": 103.0,
+      "pen": 275.0
+    },
+    {
+      "name": "Primal+4",
+      "level": 100.0,
+      "min": 54.0,
+      "max": 154.0,
+      "avg": 104.0,
+      "pen": 275.0
+    },
+    {
+      "name": "Primal+5",
+      "level": 100.0,
+      "min": 55.0,
+      "max": 155.0,
+      "avg": 105.0,
+      "pen": 275.0
+    },
+    {
+      "name": "Life and Death",
+      "level": 100.0,
+      "min": 55.0,
+      "max": 160.0,
+      "avg": 107.5,
+      "pen": 275.0
+    }
+  ],
+  "rocks": [
+    {
+      "name": "Copper",
+      "level": 1.0,
+      "diff": 40.0,
+      "hardness": 0.0,
+      "core": 1,
+      "lenCrit": 2,
+      "critLevels": [
+        2.0,
+        8.0
+      ]
+    },
+    {
+      "name": "Tin",
+      "level": 1.0,
+      "diff": 40.0,
+      "hardness": 0.0,
+      "core": 1,
+      "lenCrit": 2,
+      "critLevels": [
+        2.0,
+        8.0
+      ]
+    },
+    {
+      "name": "Clay",
+      "level": 1.0,
+      "diff": 50.0,
+      "hardness": 0.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Rune essence",
+      "level": 1.0,
+      "diff": 50.0,
+      "hardness": 0.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Shooting Star",
+      "level": 1.0,
+      "diff": 1.0,
+      "hardness": 0.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Common gem rock",
+      "level": 1.0,
+      "diff": 50.0,
+      "hardness": 0.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Iron",
+      "level": 10.0,
+      "diff": 120.0,
+      "hardness": 5.0,
+      "core": 1,
+      "lenCrit": 1,
+      "critLevels": [
+        12.0
+      ]
+    },
+    {
+      "name": "Limestone",
+      "level": 10.0,
+      "diff": 150.0,
+      "hardness": 5.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Blurite",
+      "level": 10.0,
+      "diff": 150.0,
+      "hardness": 15.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Coal",
+      "level": 20.0,
+      "diff": 140.0,
+      "hardness": 15.0,
+      "core": 1,
+      "lenCrit": 1,
+      "critLevels": [
+        25.0
+      ]
+    },
+    {
+      "name": "Silver",
+      "level": 20.0,
+      "diff": 140.0,
+      "hardness": 15.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Daeyalt",
+      "level": 20.0,
+      "diff": 200.0,
+      "hardness": 0.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Uncommon gem rock",
+      "level": 20.0,
+      "diff": 140.0,
+      "hardness": 15.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Rare gem rock",
+      "level": 23.0,
+      "diff": 1300.0,
+      "hardness": 140.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Precious gem rock",
+      "level": 25.0,
+      "diff": 380.0,
+      "hardness": 50.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Mithril",
+      "level": 30.0,
+      "diff": 240.0,
+      "hardness": 30.0,
+      "core": 1,
+      "lenCrit": 2,
+      "critLevels": [
+        31.0,
+        35.0
+      ]
+    },
+    {
+      "name": "Sandstone",
+      "level": 35.0,
+      "diff": 150.0,
+      "hardness": 30.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Adamantite",
+      "level": 40.0,
+      "diff": 380.0,
+      "hardness": 50.0,
+      "core": 1,
+      "lenCrit": 2,
+      "critLevels": [
+        45.0,
+        48.0
+      ]
+    },
+    {
+      "name": "Luminite",
+      "level": 40.0,
+      "diff": 380.0,
+      "hardness": 50.0,
+      "core": 1,
+      "lenCrit": 2,
+      "critLevels": [
+        45.0,
+        48.0
+      ]
+    },
+    {
+      "name": "Gold",
+      "level": 40.0,
+      "diff": 200.0,
+      "hardness": 50.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "",
+      "level": 40.0,
+      "diff": 200.0,
+      "hardness": 0.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Granite",
+      "level": 45.0,
+      "diff": 400.0,
+      "hardness": 50.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Rubium",
+      "level": 46.0,
+      "diff": 100.0,
+      "hardness": 0.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Runite",
+      "level": 50.0,
+      "diff": 600.0,
+      "hardness": 75.0,
+      "core": 1,
+      "lenCrit": 2,
+      "critLevels": [
+        56.0,
+        58.0
+      ]
+    },
+    {
+      "name": "Mineral deposit",
+      "level": 50.0,
+      "diff": 150.0,
+      "hardness": 75.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Orichalcite",
+      "level": 60.0,
+      "diff": 1000.0,
+      "hardness": 105.0,
+      "core": 1,
+      "lenCrit": 1,
+      "critLevels": [
+        64.0
+      ]
+    },
+    {
+      "name": "Drakolith",
+      "level": 60.0,
+      "diff": 1000.0,
+      "hardness": 105.0,
+      "core": 1,
+      "lenCrit": 1,
+      "critLevels": [
+        64.0
+      ]
+    },
+    {
+      "name": "Lava Flow Mine",
+      "level": 68.0,
+      "diff": 200000.0,
+      "hardness": 105.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Necrite",
+      "level": 70.0,
+      "diff": 1300.0,
+      "hardness": 140.0,
+      "core": 1,
+      "lenCrit": 1,
+      "critLevels": [
+        75.0
+      ]
+    },
+    {
+      "name": "Phasmatite",
+      "level": 70.0,
+      "diff": 1300.0,
+      "hardness": 140.0,
+      "core": 1,
+      "lenCrit": 1,
+      "critLevels": [
+        75.0
+      ]
+    },
+    {
+      "name": "Concentrated Coal",
+      "level": 70.0,
+      "diff": 500.0,
+      "hardness": 140.0,
+      "core": 1,
+      "lenCrit": 1,
+      "critLevels": [
+        25.0
+      ]
+    },
+    {
+      "name": "Living rock remains",
+      "level": 73.0,
+      "diff": 1300.0,
+      "hardness": 140.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Soft clay",
+      "level": 75.0,
+      "diff": 75.0,
+      "hardness": 0.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Solid crystal",
+      "level": 75.0,
+      "diff": 800.0,
+      "hardness": 105.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Prifddinas gem rock",
+      "level": 75.0,
+      "diff": 1150.0,
+      "hardness": 140.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Banite",
+      "level": 80.0,
+      "diff": 1700.0,
+      "hardness": 180.0,
+      "core": 1,
+      "lenCrit": 1,
+      "critLevels": [
+        81.0
+      ]
+    },
+    {
+      "name": "Concentrated Gold",
+      "level": 80.0,
+      "diff": 750.0,
+      "hardness": 180.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Lava Flow Mine Geyser",
+      "level": 80.0,
+      "diff": 1.0,
+      "hardness": 185.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Red sandstone (Oo",
+      "level": 81.0,
+      "diff": 700.0,
+      "hardness": 180.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Red sandstone (Sophanem)",
+      "level": 81.0,
+      "diff": 650.0,
+      "hardness": 180.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Meteorite",
+      "level": 85.0,
+      "diff": 600.0,
+      "hardness": 125.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Crystal-flecked sandstone (Ithell)",
+      "level": 81.0,
+      "diff": 800.0,
+      "hardness": 180.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Crystal-flecked sandstone (Meilyr)",
+      "level": 81.0,
+      "diff": 750.0,
+      "hardness": 180.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Seren stone",
+      "level": 89.0,
+      "diff": 2000.0,
+      "hardness": 140.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Light animica",
+      "level": 90.0,
+      "diff": 2000.0,
+      "hardness": 225.0,
+      "core": 1,
+      "lenCrit": 2,
+      "critLevels": [
+        91.0,
+        97.0
+      ]
+    },
+    {
+      "name": "Dark animica",
+      "level": 90.0,
+      "diff": 2000.0,
+      "hardness": 225.0,
+      "core": 1,
+      "lenCrit": 2,
+      "critLevels": [
+        91.0,
+        97.0
+      ]
+    },
+    {
+      "name": "Salty crabletine",
+      "level": 90.0,
+      "diff": 800.0,
+      "hardness": 185.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Salty crablet",
+      "level": 90.0,
+      "diff": 1200.0,
+      "hardness": 185.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Alaea crablet",
+      "level": 97.0,
+      "diff": 800.0,
+      "hardness": 185.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Novite",
+      "level": 100.0,
+      "diff": 3000.0,
+      "hardness": 275.0,
+      "core": 1,
+      "lenCrit": 2,
+      "critLevels": [
+        104.0,
+        109.0
+      ]
+    },
+    {
+      "name": "Bathus",
+      "level": 100.0,
+      "diff": 3000.0,
+      "hardness": 275.0,
+      "core": 1,
+      "lenCrit": 2,
+      "critLevels": [
+        104.0,
+        109.0
+      ]
+    },
+    {
+      "name": "Marmaros",
+      "level": 100.0,
+      "diff": 3000.0,
+      "hardness": 275.0,
+      "core": 1,
+      "lenCrit": 2,
+      "critLevels": [
+        104.0,
+        109.0
+      ]
+    },
+    {
+      "name": "Kratonium",
+      "level": 100.0,
+      "diff": 3000.0,
+      "hardness": 275.0,
+      "core": 1,
+      "lenCrit": 2,
+      "critLevels": [
+        104.0,
+        109.0
+      ]
+    },
+    {
+      "name": "Fractite",
+      "level": 100.0,
+      "diff": 3000.0,
+      "hardness": 275.0,
+      "core": 1,
+      "lenCrit": 2,
+      "critLevels": [
+        104.0,
+        109.0
+      ]
+    },
+    {
+      "name": "Zephyrium",
+      "level": 100.0,
+      "diff": 3000.0,
+      "hardness": 275.0,
+      "core": 1,
+      "lenCrit": 2,
+      "critLevels": [
+        104.0,
+        109.0
+      ]
+    },
+    {
+      "name": "Argonite",
+      "level": 100.0,
+      "diff": 3000.0,
+      "hardness": 275.0,
+      "core": 1,
+      "lenCrit": 2,
+      "critLevels": [
+        104.0,
+        109.0
+      ]
+    },
+    {
+      "name": "Katagon",
+      "level": 100.0,
+      "diff": 3000.0,
+      "hardness": 275.0,
+      "core": 1,
+      "lenCrit": 2,
+      "critLevels": [
+        104.0,
+        109.0
+      ]
+    },
+    {
+      "name": "Gorgonite",
+      "level": 100.0,
+      "diff": 3000.0,
+      "hardness": 275.0,
+      "core": 1,
+      "lenCrit": 2,
+      "critLevels": [
+        104.0,
+        109.0
+      ]
+    },
+    {
+      "name": "Promethium",
+      "level": 100.0,
+      "diff": 3000.0,
+      "hardness": 275.0,
+      "core": 1,
+      "lenCrit": 2,
+      "critLevels": [
+        104.0,
+        109.0
+      ]
+    },
+    {
+      "name": "Calcified fungus",
+      "level": 88.0,
+      "diff": 1800.0,
+      "hardness": 140.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Enriched calcified fungus",
+      "level": 92.0,
+      "diff": 1900.0,
+      "hardness": 225.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Platinum",
+      "level": 104.0,
+      "diff": 1900.0,
+      "hardness": 275.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Porcelain clay",
+      "level": 102.0,
+      "diff": 1800.0,
+      "hardness": 275.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    },
+    {
+      "name": "Soft porcelain clay",
+      "level": 102.0,
+      "diff": 1800.0,
+      "hardness": 275.0,
+      "core": 0,
+      "lenCrit": 0,
+      "critLevels": []
+    }
+  ]
+}

@@ -1,0 +1,261 @@
+---
+import miningData from "../../data/rs3-mining-data.json";
+
+const defaultLevel = 90;
+const defaultPick = "Elder rune+5";
+const sortedPicks = [...miningData.picks].sort((a, b) => (a.level === b.level ? a.max - b.max : a.level - b.level));
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RuneScape Utilities | One-Hit Mining Calculator</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+      :root {
+        --bg: #0d1016;
+        --bg-soft: #171d28;
+        --ink: #eff4ff;
+        --muted: #a5b2ca;
+        --line: #2a3142;
+        --accent: #54e4b5;
+        --accent-warm: #ffbf69;
+        --danger: #ff6b6b;
+        --card-radius: 18px;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: "Space Grotesk", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(1200px 800px at 10% -10%, #26425f 0%, transparent 60%),
+          radial-gradient(900px 500px at 90% 0%, #2d2340 0%, transparent 50%),
+          var(--bg);
+        min-height: 100vh;
+      }
+
+      .layout { width: min(1200px, 92vw); margin: 0 auto; padding: 3rem 0 4rem; }
+      .hero h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.05; }
+      .eyebrow { display: inline-block; margin: 0 0 0.75rem; color: #7be7c4; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.8rem; }
+      .intro { max-width: 65ch; color: var(--muted); margin-top: 0.9rem; }
+
+      .panel {
+        background: color-mix(in oklab, var(--bg-soft) 90%, black 10%);
+        border: 1px solid var(--line);
+        border-radius: var(--card-radius);
+        padding: 1rem 1.1rem;
+        backdrop-filter: blur(8px);
+      }
+
+      .controls { margin-top: 1.2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.9rem; }
+      label { display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem; color: var(--muted); }
+
+      input, select {
+        appearance: none;
+        border: 1px solid var(--line);
+        background: #111724;
+        color: var(--ink);
+        border-radius: 12px;
+        padding: 0.65rem 0.75rem;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.95rem;
+      }
+
+      .check { justify-content: end; }
+      .check input { width: 1.1rem; height: 1.1rem; accent-color: var(--accent); }
+      .effective { margin-top: 1rem; }
+      .effective h2 { margin: 0 0 0.5rem; font-size: 1.05rem; }
+      .effective p { margin: 0.25rem 0; color: var(--muted); }
+      .warning { color: var(--accent-warm) !important; }
+
+      .results-grid { margin-top: 1rem; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+      .result h3 { margin: 0; font-size: 1.2rem; }
+      .result p { margin: 0.35rem 0; color: var(--muted); }
+      .count { color: var(--ink) !important; font-family: "IBM Plex Mono", monospace; }
+      .table-wrap { margin-top: 0.75rem; max-height: 360px; overflow: auto; border: 1px solid var(--line); border-radius: 12px; }
+      table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+      th, td { padding: 0.55rem 0.5rem; border-bottom: 1px solid var(--line); text-align: left; font-family: "IBM Plex Mono", monospace; }
+      thead { position: sticky; top: 0; background: #121928; }
+      tr:last-child td { border-bottom: 0; }
+      .good { border-color: color-mix(in oklab, var(--accent), var(--line) 70%); }
+      .maybe { border-color: color-mix(in oklab, var(--accent-warm), var(--line) 70%); }
+      .bad { border-color: color-mix(in oklab, var(--danger), var(--line) 70%); }
+      .empty { text-align: center; color: var(--muted); }
+      .footnote { margin-top: 1.2rem; color: var(--muted); font-size: 0.9rem; }
+
+      @media (max-width: 780px) {
+        .layout { width: min(96vw, 1200px); padding-top: 2rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="layout">
+      <header class="hero">
+        <p class="eyebrow">RuneScape Utilities</p>
+        <h1>RS3 One-Hit Mining Calculator</h1>
+        <p class="intro">Find which rocks your setup can break in one swing. This uses the RS3 mining damage model from the RuneScape Wiki calculator data.</p>
+      </header>
+
+      <section class="panel controls">
+        <label>
+          Mining Level
+          <input id="mining-level" type="number" min="1" max="120" value={defaultLevel} />
+        </label>
+
+        <label>
+          Pickaxe
+          <select id="pickaxe">
+            {sortedPicks.map((pick) => (
+              <option value={pick.name} selected={pick.name === defaultPick}>{pick.name} (req {pick.level})</option>
+            ))}
+          </select>
+        </label>
+
+        <label class="check">
+          <input id="core-only" type="checkbox" checked />
+          Core ore rocks only
+        </label>
+      </section>
+
+      <section class="panel effective">
+        <h2>Effective setup</h2>
+        <p id="selected-pick"></p>
+        <p id="effective-pick"></p>
+        <p id="effective-warning" class="warning"></p>
+      </section>
+
+      <section class="results-grid">
+        <article class="panel result good">
+          <h3>Guaranteed One-Hit</h3>
+          <p>Minimum hit already meets rock durability</p>
+          <p class="count" id="count-guaranteed"></p>
+          <div class="table-wrap"><table><thead><tr><th>Rock</th><th>Lvl</th><th>HP</th><th>Min</th><th>Max</th></tr></thead><tbody id="rows-guaranteed"></tbody></table></div>
+        </article>
+
+        <article class="panel result maybe">
+          <h3>Possible One-Hit</h3>
+          <p>Maximum hit can one-shot, but not guaranteed</p>
+          <p class="count" id="count-possible"></p>
+          <div class="table-wrap"><table><thead><tr><th>Rock</th><th>Lvl</th><th>HP</th><th>Min</th><th>Max</th></tr></thead><tbody id="rows-possible"></tbody></table></div>
+        </article>
+
+        <article class="panel result bad">
+          <h3>Not One-Hit</h3>
+          <p>Even max hit does not break the rock</p>
+          <p class="count" id="count-not"></p>
+          <div class="table-wrap"><table><thead><tr><th>Rock</th><th>Lvl</th><th>HP</th><th>Min</th><th>Max</th></tr></thead><tbody id="rows-not"></tbody></table></div>
+        </article>
+      </section>
+
+      <footer class="footnote">
+        <p>Notes: strength boosts, familiars, perks, and buffs are not included yet. This first version uses mining level + pickaxe only.</p>
+      </footer>
+    </main>
+
+    <script id="mining-data" type="application/json" is:inline>{JSON.stringify(miningData)}</script>
+
+    <script is:inline>
+      // @ts-nocheck
+      const CRIT_BONUS_LEVEL = [1, 3, 9, 11, 17, 22, 24, 32, 34, 43, 44, 52, 59, 61, 65, 74, 79, 84, 87, 99, 105];
+      const CRIT_BONUS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105];
+
+      const data = JSON.parse(document.getElementById("mining-data").textContent || "{}");
+      const levelInput = document.getElementById("mining-level");
+      const pickSelect = document.getElementById("pickaxe");
+      const coreOnlyInput = document.getElementById("core-only");
+
+      const selectedPickEl = document.getElementById("selected-pick");
+      const effectivePickEl = document.getElementById("effective-pick");
+      const warningEl = document.getElementById("effective-warning");
+
+      const countGuaranteedEl = document.getElementById("count-guaranteed");
+      const countPossibleEl = document.getElementById("count-possible");
+      const countNotEl = document.getElementById("count-not");
+
+      const rowsGuaranteedEl = document.getElementById("rows-guaranteed");
+      const rowsPossibleEl = document.getElementById("rows-possible");
+      const rowsNotEl = document.getElementById("rows-not");
+
+      const picks = [...data.picks].sort((a, b) => (a.level === b.level ? a.max - b.max : a.level - b.level));
+      const pickMap = new Map(picks.map((pick) => [pick.name, pick]));
+
+      const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+
+      function critBonus(miningLevel) {
+        let bonus = 0;
+        for (let i = 0; i < CRIT_BONUS_LEVEL.length; i += 1) {
+          if (miningLevel >= CRIT_BONUS_LEVEL[i]) bonus = CRIT_BONUS[i];
+          else break;
+        }
+        return bonus;
+      }
+
+      function critChance(miningLevel, rock) {
+        if (rock.lenCrit === 2 && rock.critLevels.length >= 2) {
+          if (miningLevel >= rock.critLevels[1]) return 0.2;
+          if (miningLevel >= rock.critLevels[0]) return 0.15;
+          return 0.1;
+        }
+        if (rock.lenCrit === 1 && rock.critLevels.length >= 1) {
+          return miningLevel >= rock.critLevels[0] ? 0.15 : 0.1;
+        }
+        return 0.1;
+      }
+
+      function damage(miningLevel, pickaxe, rock) {
+        const netHardness = Math.min(0, pickaxe.pen - rock.hardness);
+        const netCritBonus = Math.max(1, critBonus(miningLevel) + netHardness);
+        const netCrit = netCritBonus * critChance(miningLevel, rock);
+        const base = miningLevel + netHardness + netCrit;
+        return { min: Math.max(1, base + pickaxe.min), max: Math.max(1, base + pickaxe.max) };
+      }
+
+      function renderRows(target, entries) {
+        if (entries.length === 0) {
+          target.innerHTML = '<tr><td class="empty" colspan="5">None</td></tr>';
+          return;
+        }
+        target.innerHTML = entries.map((entry) => `<tr><td>${entry.rock.name}</td><td>${entry.rock.level}</td><td>${Math.round(entry.rock.diff)}</td><td>${entry.hit.min.toFixed(1)}</td><td>${entry.hit.max.toFixed(1)}</td></tr>`).join("");
+      }
+
+      function recalc() {
+        const miningLevel = clamp(Number(levelInput.value) || 1, 1, 120);
+        levelInput.value = String(miningLevel);
+
+        const selectedPick = pickMap.get(pickSelect.value) || picks[0];
+        const bestAllowed = picks.filter((pick) => pick.level <= miningLevel);
+        const effectivePick = selectedPick.level <= miningLevel ? selectedPick : (bestAllowed[bestAllowed.length - 1] || picks[0]);
+
+        selectedPickEl.textContent = `Selected: ${selectedPick.name} (req ${selectedPick.level})`;
+        effectivePickEl.textContent = `Used in calc: ${effectivePick.name} (req ${effectivePick.level})`;
+        warningEl.textContent = selectedPick.name === effectivePick.name ? "" : "Your selected pickaxe is above your mining level, so the calculator falls back to the best usable pickaxe.";
+
+        const coreOnly = coreOnlyInput.checked;
+        const eligible = data.rocks.filter((rock) => rock.level <= miningLevel).filter((rock) => (coreOnly ? rock.core === 1 : true));
+        const enriched = eligible.map((rock) => ({ rock, hit: damage(miningLevel, effectivePick, rock) })).sort((a, b) => a.rock.level - b.rock.level || a.rock.diff - b.rock.diff);
+
+        const guaranteed = enriched.filter((entry) => entry.hit.min >= entry.rock.diff);
+        const possible = enriched.filter((entry) => entry.hit.min < entry.rock.diff && entry.hit.max >= entry.rock.diff);
+        const notPossible = enriched.filter((entry) => entry.hit.max < entry.rock.diff);
+
+        countGuaranteedEl.textContent = `${guaranteed.length} rocks`;
+        countPossibleEl.textContent = `${possible.length} rocks`;
+        countNotEl.textContent = `${notPossible.length} rocks`;
+
+        renderRows(rowsGuaranteedEl, guaranteed);
+        renderRows(rowsPossibleEl, possible);
+        renderRows(rowsNotEl, notPossible);
+      }
+
+      levelInput.addEventListener("input", recalc);
+      pickSelect.addEventListener("change", recalc);
+      coreOnlyInput.addEventListener("change", recalc);
+      recalc();
+    </script>
+  </body>
+</html>
