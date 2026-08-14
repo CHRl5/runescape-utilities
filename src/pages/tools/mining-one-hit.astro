@@ -4,6 +4,7 @@ import miningData from "../../../data/rs3-mining-data.json";
 const defaultLevel = 90;
 const defaultStrengthLevel = 99;
 const defaultPick = "Elder rune+5";
+const levelOptions = Array.from({ length: 120 }, (_, index) => index + 1);
 const sortedPicks = [...miningData.picks].sort((a, b) => (a.level === b.level ? a.max - b.max : a.level - b.level));
 ---
 
@@ -109,12 +110,20 @@ const sortedPicks = [...miningData.picks].sort((a, b) => (a.level === b.level ? 
       <section class="panel controls">
         <label>
           Mining Level
-          <input id="mining-level" type="number" min="1" max="120" value={defaultLevel} />
+          <select id="mining-level">
+            {levelOptions.map((level) => (
+              <option value={level} selected={level === defaultLevel}>{level}</option>
+            ))}
+          </select>
         </label>
 
         <label>
           Strength Level
-          <input id="strength-level" type="number" min="1" max="120" value={defaultStrengthLevel} />
+          <select id="strength-level">
+            {levelOptions.map((level) => (
+              <option value={level} selected={level === defaultStrengthLevel}>{level}</option>
+            ))}
+          </select>
         </label>
 
         <label>
@@ -169,14 +178,12 @@ const sortedPicks = [...miningData.picks].sort((a, b) => (a.level === b.level ? 
       </footer>
     </main>
 
-    <script id="mining-data" type="application/json" is:inline>{JSON.stringify(miningData)}</script>
-
-    <script is:inline>
+    <script define:vars={{ miningData }} is:inline>
       // @ts-nocheck
       const CRIT_BONUS_LEVEL = [1, 3, 9, 11, 17, 22, 24, 32, 34, 43, 44, 52, 59, 61, 65, 74, 79, 84, 87, 99, 105];
       const CRIT_BONUS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105];
 
-      const data = JSON.parse(document.getElementById("mining-data").textContent || "{}");
+      const data = miningData;
       const levelInput = document.getElementById("mining-level");
       const strengthLevelInput = document.getElementById("strength-level");
       const pickSelect = document.getElementById("pickaxe");
@@ -241,8 +248,6 @@ const sortedPicks = [...miningData.picks].sort((a, b) => (a.level === b.level ? 
       function recalc() {
         const miningLevel = clamp(Number(levelInput.value) || 1, 1, 120);
         const strengthLevel = clamp(Number(strengthLevelInput.value) || 1, 1, 120);
-        levelInput.value = String(miningLevel);
-        strengthLevelInput.value = String(strengthLevel);
 
         const selectedPick = pickMap.get(pickSelect.value) || picks[0];
         const bestAllowed = picks.filter((pick) => pick.level <= miningLevel);
@@ -275,8 +280,8 @@ const sortedPicks = [...miningData.picks].sort((a, b) => (a.level === b.level ? 
         renderRows(rowsNotEl, notPossible);
       }
 
-      levelInput.addEventListener("input", recalc);
-      strengthLevelInput.addEventListener("input", recalc);
+      levelInput.addEventListener("change", recalc);
+      strengthLevelInput.addEventListener("change", recalc);
       pickSelect.addEventListener("change", recalc);
       coreOnlyInput.addEventListener("change", recalc);
       recalc();
