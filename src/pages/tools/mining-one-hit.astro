@@ -25,6 +25,9 @@ const sortedPicks = [...miningData.picks].sort((a, b) => (a.level === b.level ? 
         --accent: #54e4b5;
         --accent-warm: #ffbf69;
         --danger: #ff6b6b;
+        --good: #54e4b5;
+        --maybe: #ffbf69;
+        --bad: #ff8b8b;
         --card-radius: 18px;
       }
 
@@ -68,10 +71,52 @@ const sortedPicks = [...miningData.picks].sort((a, b) => (a.level === b.level ? 
         padding: 0.65rem 0.75rem;
         font-family: "IBM Plex Mono", monospace;
         font-size: 0.95rem;
+        transition: border-color 140ms ease, box-shadow 140ms ease;
+      }
+
+      select:focus-visible,
+      input:focus-visible,
+      button:focus-visible {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(84, 228, 181, 0.2);
       }
 
       .check { justify-content: end; }
       .check input { width: 1.1rem; height: 1.1rem; accent-color: var(--accent); }
+      .actions {
+        grid-column: 1 / -1;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+        align-items: center;
+      }
+
+      .actions-title {
+        color: var(--muted);
+        font-size: 0.85rem;
+        margin-right: 0.25rem;
+      }
+
+      .chip {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: #111724;
+        color: var(--ink);
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.8rem;
+        padding: 0.4rem 0.7rem;
+        cursor: pointer;
+      }
+
+      .chip:hover {
+        border-color: color-mix(in oklab, var(--accent), var(--line) 60%);
+      }
+
+      .chip.secondary:hover {
+        border-color: color-mix(in oklab, var(--accent-warm), var(--line) 55%);
+      }
+
       .effective { margin-top: 1rem; }
       .effective h2 { margin: 0 0 0.5rem; font-size: 1.05rem; }
       .effective p { margin: 0.25rem 0; color: var(--muted); }
@@ -86,6 +131,8 @@ const sortedPicks = [...miningData.picks].sort((a, b) => (a.level === b.level ? 
       table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
       th, td { padding: 0.55rem 0.5rem; border-bottom: 1px solid var(--line); text-align: left; font-family: "IBM Plex Mono", monospace; }
       thead { position: sticky; top: 0; background: #121928; }
+      tbody tr:nth-child(odd) { background: rgba(255, 255, 255, 0.012); }
+      tbody tr:hover { background: rgba(84, 228, 181, 0.08); }
       tr:last-child td { border-bottom: 0; }
       .good { border-color: color-mix(in oklab, var(--accent), var(--line) 70%); }
       .maybe { border-color: color-mix(in oklab, var(--accent-warm), var(--line) 70%); }
@@ -93,8 +140,28 @@ const sortedPicks = [...miningData.picks].sort((a, b) => (a.level === b.level ? 
       .empty { text-align: center; color: var(--muted); }
       .footnote { margin-top: 1.2rem; color: var(--muted); font-size: 0.9rem; }
 
+      .legend {
+        margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+      }
+
+      .badge {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 0.25rem 0.6rem;
+        font-size: 0.8rem;
+        font-family: "IBM Plex Mono", monospace;
+      }
+
+      .badge.good { color: var(--good); border-color: rgba(84, 228, 181, 0.45); }
+      .badge.maybe { color: var(--maybe); border-color: rgba(255, 191, 105, 0.45); }
+      .badge.bad { color: var(--bad); border-color: rgba(255, 139, 139, 0.45); }
+
       @media (max-width: 780px) {
         .layout { width: min(96vw, 1200px); padding-top: 2rem; }
+        .actions { margin-top: 0.2rem; }
       }
     </style>
   </head>
@@ -139,6 +206,15 @@ const sortedPicks = [...miningData.picks].sort((a, b) => (a.level === b.level ? 
           <input id="core-only" type="checkbox" checked />
           Core ore rocks only
         </label>
+
+        <div class="actions">
+          <span class="actions-title">Quick presets:</span>
+          <button id="preset-early" class="chip" type="button">Early (40/40)</button>
+          <button id="preset-mid" class="chip" type="button">Mid (70/70)</button>
+          <button id="preset-late" class="chip" type="button">Late (99/99)</button>
+          <button id="preset-end" class="chip" type="button">Endgame (120/120)</button>
+          <button id="preset-reset" class="chip secondary" type="button">Reset Defaults</button>
+        </div>
       </section>
 
       <section class="panel effective">
@@ -175,6 +251,11 @@ const sortedPicks = [...miningData.picks].sort((a, b) => (a.level === b.level ? 
 
       <footer class="footnote">
         <p>Notes: this version includes mining level, strength level, and pickaxe. External buffs (auras, perks, familiars, potions, etc.) are still excluded.</p>
+        <div class="legend">
+          <span class="badge good">Guaranteed = minimum hit clears HP</span>
+          <span class="badge maybe">Possible = only max hit clears HP</span>
+          <span class="badge bad">Not one-hit = max hit still below HP</span>
+        </div>
       </footer>
     </main>
 
@@ -188,6 +269,11 @@ const sortedPicks = [...miningData.picks].sort((a, b) => (a.level === b.level ? 
       const strengthLevelInput = document.getElementById("strength-level");
       const pickSelect = document.getElementById("pickaxe");
       const coreOnlyInput = document.getElementById("core-only");
+      const presetEarly = document.getElementById("preset-early");
+      const presetMid = document.getElementById("preset-mid");
+      const presetLate = document.getElementById("preset-late");
+      const presetEnd = document.getElementById("preset-end");
+      const presetReset = document.getElementById("preset-reset");
 
       const effectiveStrengthEl = document.getElementById("effective-strength");
       const selectedPickEl = document.getElementById("selected-pick");
@@ -280,10 +366,26 @@ const sortedPicks = [...miningData.picks].sort((a, b) => (a.level === b.level ? 
         renderRows(rowsNotEl, notPossible);
       }
 
+      function applyPreset(miningLevel, strengthLevel) {
+        levelInput.value = String(miningLevel);
+        strengthLevelInput.value = String(strengthLevel);
+
+        const bestAllowed = picks.filter((pick) => pick.level <= miningLevel);
+        const best = bestAllowed[bestAllowed.length - 1] || picks[0];
+        pickSelect.value = best.name;
+
+        recalc();
+      }
+
       levelInput.addEventListener("change", recalc);
       strengthLevelInput.addEventListener("change", recalc);
       pickSelect.addEventListener("change", recalc);
       coreOnlyInput.addEventListener("change", recalc);
+      presetEarly.addEventListener("click", () => applyPreset(40, 40));
+      presetMid.addEventListener("click", () => applyPreset(70, 70));
+      presetLate.addEventListener("click", () => applyPreset(99, 99));
+      presetEnd.addEventListener("click", () => applyPreset(120, 120));
+      presetReset.addEventListener("click", () => applyPreset(90, 99));
       recalc();
     </script>
   </body>
